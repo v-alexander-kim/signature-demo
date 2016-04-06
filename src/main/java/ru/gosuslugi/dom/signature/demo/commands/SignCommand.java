@@ -54,7 +54,7 @@ public class SignCommand implements Command {
 
         // загружаем хранилище закрытых ключей
         char[] storePassword = parameters.getStorePassword() == null ? null : StringUtils.defaultString(parameters.getStorePassword()).toCharArray();
-        char[] keyPassword = parameters.getStorePassword() == null ? null : StringUtils.defaultString(parameters.getKeyPassword()).toCharArray();
+        char[] keyPassword = parameters.getKeyPassword() == null ? null : StringUtils.defaultString(parameters.getKeyPassword()).toCharArray();
         KeyStore keyStore = KeyStore.getInstance(parameters.getStoreType(), provider);
         if (parameters.getStoreFile() != null) {
             KeyStoreUtils.loadKeyStoreFromFile(keyStore, parameters.getStoreFile(), storePassword);
