@@ -10,7 +10,7 @@ public class Consts {
     /**
      * Алгоритм электронной подписи
      */
-    public static final String SIGNATURE_ALGORITHM = "http://www.w3.org/2001/04/xmldsig-more#gostr34102001-gostr3411";
+    public static final String SIGNATURE_ALGORITHM = "http://www.w3.org/2001/04/xmldsig-more#gostr34102012-gostr34102012-256";
     /**
      * Алгоритм каноникализации для подписи
      */
