@@ -24,10 +24,7 @@ import xades4j.providers.KeyingDataProvider;
 import xades4j.providers.MessageDigestEngineProvider;
 import xades4j.providers.impl.DirectKeyingDataProvider;
 
-import java.security.KeyException;
-import java.security.KeyStore;
-import java.security.Provider;
-import java.security.Security;
+import java.security.*;
 import java.security.cert.X509Certificate;
 
 /**
@@ -63,13 +60,13 @@ public class SignCommand implements Command {
         }
 
         // загружаем закрытый ключ
-        KeyStore.PrivateKeyEntry keyEntry = KeyLoader.loadPrivateKey(keyStore, parameters.getAlias(), keyPassword);
+        PrivateKey keyEntry = KeyLoader.getPrivateKey(keyStore, parameters.getAlias(), keyPassword);
         if (keyEntry == null) {
             throw new KeyException("Key not found: " + parameters.getAlias());
         }
 
         // создаем провайдер для доступа к закрытому ключу
-        KeyingDataProvider kp = new DirectKeyingDataProvider((X509Certificate) keyEntry.getCertificate(), keyEntry.getPrivateKey());
+        KeyingDataProvider kp = new DirectKeyingDataProvider((X509Certificate) KeyLoader.getX509Certificate(keyStore, parameters.getAlias()), KeyLoader.getPrivateKey(keyStore, parameters.getAlias(), keyPassword));
 
         // создаем провайдер, описывающий используемые алгоритмы
         CustomizableAlgorithmProvider algorithmsProvider = new CustomizableAlgorithmProvider();
